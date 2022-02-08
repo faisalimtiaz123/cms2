@@ -1,0 +1,46 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+	background: #333;
+}
+
+.container{
+	width: 80%;
+	margin:0px auto;
+	/*background: #fff;*/
+	min-height: 700px;
+	
+
+}
+.content{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.header{
+	height: 40px;
+	display: flex;
+	align-items: center;
+	background: #dfdede;
+}
+
+.navbar{
+	list-style-type: none;
+}
+
+.navbar li{
+	display: inline-block;
+	padding: 0px 20px;
+}
+.navbar li a{
+	text-decoration: none;
+    color: #333333;
+    font-size: 18px;
+}
+
+
+
+

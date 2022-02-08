@@ -7,19 +7,19 @@
 		header("Location: index.php");
 	}
 
+
 	$error = '';
 	$success = '';
-	$fullname = '';
+	
 	$email = '';
 	$password = '';
 
 	if( $_SERVER['REQUEST_METHOD']=='POST' ){
 
-		$fullname = $_POST['fullname'];
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 
-		if( $fullname=='' || $email=='' || $password=='' ){
+		if( $email=='' || $password=='' ){
 			$error = 'Please fill all the fields.';
 		}else{
 
@@ -28,43 +28,26 @@
 				$error = 'Your password should be between 3 to 8 charactors';
 			}else{
 
-				// if( condition ){
-				// 	echo 'your password must be strong.';
-				// }
-
-				// if( email is not correct ){
-				// 	$error = 'email not valid';
-				// }else{
-					
-				// }
-
 
 				// db insert
 				$connection = new mysqli("localhost", "faisal", "faisal", "cms2");
 
-				$selectquery = "SELECT * FROM users WHERE email='$email'";
-				$query_run = $connection->query($selectquery);
+				$encypt = md5($password);
 
-				// echo mysqli_num_rows($query_run);
+				$selectquery = "SELECT * FROM users WHERE email='$email' and password='$encypt'";
+				$run_query = $connection->query($selectquery);
 
-				if( mysqli_num_rows($query_run) >= 1 ){
-					$error = 'Sorry this email already exists. Please login';
+				if( mysqli_num_rows($run_query)==0 ){
+					$error =  "Your password or emai does not match";
 				}else{
-					$encryptedpassword = md5($password);
+					// success
+					$result = mysqli_fetch_assoc($run_query);
 
-					$query = "INSERT INTO users SET 
-							  fullname='$fullname',
-							  email='$email',
-							  password='$encryptedpassword'
-							  ";
+					$_SESSION['uid'] = $result['id'];
 
-					$connection->query($query);
 
-					$success = 'You have been successfully registered. Please LOGIN now';
+					header("Location: index.php");
 
-					$fullname = '';
-					$email = '';
-					$password = '';
 				}
 
 
@@ -97,7 +80,7 @@
 	
 	<div class="centerbox">
 		
-		<h3>Become a member</h3>
+		<h3>Login from here</h3>
 
 		<?php 
 			if( $error!='' ){
@@ -112,15 +95,13 @@
 		?>
 		
 
-		<form action="signup.php" method="POST">
-			
-			<input type="text" name="fullname" placeholder="Enter your name" class="textfield" value="<?php echo $fullname; ?>" />
+		<form action="login.php" method="POST">
 			
 			<input type="text" name="email" placeholder="Enter your email" class="textfield" value="<?php echo $email; ?>" />
 
 			<input type="password" name="password" placeholder="Enter your password" class="textfield" value="<?php echo $password; ?>" />
 			
-			<input type="submit" value="Register" class="btn" /> 
+			<input type="submit" value="Login" class="btn" /> 
 
 
 		</form>
