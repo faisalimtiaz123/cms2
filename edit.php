@@ -2,6 +2,20 @@
 
 	session_start();
 
+	$connection = new mysqli("localhost", "faisal", "faisal", "cms2");
+
+
+	$artice_id = $_GET['id'];
+
+
+	$query = "SELECT * FROM articles WHERE id='$artice_id'";
+
+	$run = $connection->query($query);
+
+	$result = mysqli_fetch_assoc($run);
+
+
+
 
 
 	$error = '';
@@ -25,18 +39,19 @@
 
 			move_uploaded_file($tmp_attachment, 'uploads/'.$attachment);
 
-			$insertQuery = "INSERT INTO articles SET 
-							user_id='".$_SESSION['uid']."',
+			$insertQuery = "UPDATE articles SET 
 							title='$title',
 							content='$content',
 							attachment='$attachment'
+
+							where id='$artice_id'
 							";
 
-			$connection = new mysqli("localhost", "faisal", "faisal", "cms2");
+			
 
 			$connection->query($insertQuery);
 
-			$success = 'New article has been posted.';
+			$success = 'Article has been updated successfully!';
 
 
 		}
@@ -68,7 +83,7 @@
 	
 	<div class="centerbox">
 		
-		<h3>Add article from here</h3>
+		<h3>Edit article from here</h3>
 
 		<?php 
 			if( $error!='' ){
@@ -83,12 +98,12 @@
 		?>
 		
 
-		<form action="add.php" method="POST" enctype="multipart/form-data">
+		<form action="" method="POST" enctype="multipart/form-data">
 			
-			<input type="text" name="title" placeholder="Enter article title" class="textfield" />
+			<input type="text" name="title" placeholder="Enter article title" class="textfield" value="<?=$result['title']?>" />
 
 
-			<textarea class="textfield" name="content" placeholder="Enter article body"></textarea>
+			<textarea class="textfield" name="content" placeholder="Enter article body"><?=$result['content']?></textarea>
 
 			<input type="file" name="attachment" class="textfield" />
 

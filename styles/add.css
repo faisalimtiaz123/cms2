@@ -1,0 +1,56 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+.centerbox{
+	width: 96%;
+	padding: 20px;
+	text-align: left;
+	border-radius: 10px;
+	font-family: 'Poppins', sans-serif;
+}
+
+.error{
+	padding:5px;
+	background: red;
+	text-align: center;
+	color:#fff;
+	font-size:12px;
+}
+.success{
+	padding:5px;
+	background: green;
+	text-align: center;
+	color:#fff;
+	font-size:12px;
+}
+.centerbox h3{
+	color: #fff;
+	font-size: 20px;
+	margin-bottom: 30px;
+}
+
+.textfield{
+	display: block;
+    padding: 10px;
+    width: 95%;
+    outline: none;
+    border: 1px solid #dfdede;
+    border-radius: 4px;
+    margin: 5px 0px 32px 0px;
+    background: #c9c9c9;
+}
+
+.btn{
+	padding: 10px 40px 10px 40px;
+    background: #31cd61;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: #fff;
+}
+.btn:hover{
+	background: #40935a;
+}
